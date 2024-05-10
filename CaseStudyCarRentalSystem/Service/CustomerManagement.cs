@@ -36,14 +36,21 @@ namespace CaseStudy.Service
 
             Customer customer = new Customer(customerId, firstName, lastName, email, phoneNumber);
 
-            int AddCustomerStatus = _CustomerManagement.AddCustomer(customer);
-            if (AddCustomerStatus > 0)
-            {
-                Console.WriteLine("Customer Added successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Failed to Add Customer.");
+            Customer alreadyExists = _CustomerManagement.FindCustomerById(customerID);
+            if (!alreadyExists) {
+                Customer customer = new Customer(customerId, firstName, lastName, email, phoneNumber);
+
+                int AddCustomerStatus = _CustomerManagement.AddCustomer(customer);
+                if (AddCustomerStatus > 0)
+                {
+                    Console.WriteLine("Customer Added successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Failed to Add Customer.");
+                }
+            } else{
+                Console.WriteLine("Customer Already Exists.");
             }
         }
 
